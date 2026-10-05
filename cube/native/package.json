@@ -1,0 +1,10 @@
+{
+  "name": "cube-crystal-native-compatibility",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Rebuild the exact upstream SQLite addon for the host libc and Electron ABI.",
+  "dependencies": {
+    "better-sqlite3": "11.10.0",
+    "node-gyp": "11.5.0"
+  }
+}

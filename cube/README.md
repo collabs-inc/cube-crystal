@@ -3,8 +3,15 @@
 Install `https://github.com/collabs-inc/cube-crystal` from Cube Apps. This fork pins
 Crystal v0.3.5 (`1e18e0bc981225f75b5226f82a300fa741970c6f`) and retains the original
 MIT source and notices. The official x64 Debian release is verified using the
-committed SHA-256, then extracted privately without a build or system install.
+committed SHA-256, then extracted privately without a full app build or system install.
 The actual Linux executable is `opt/Crystal/Crystal` (capital C).
+
+The release's SQLite addon requires glibc 2.38. On older hosts, the installer
+rebuilds only the exact `better-sqlite3` 11.10.0 addon against Electron 37.6.0
+headers using one compiler job. npm source and build-tool dependencies are locked
+with integrity hashes in `native/package-lock.json`; Electron header checksums
+are verified by node-gyp. This compatibility path needs g++, make and python3.
+It does not change the upstream JavaScript, SQLite API version, or system libc.
 
 Crystal displays an upstream notice that it is becoming Nimbalyst. Choose
 **Continue with Crystal** to use this pinned release. This integration does not

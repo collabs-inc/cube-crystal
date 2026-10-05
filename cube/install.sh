@@ -12,6 +12,7 @@ cache="${XDG_CACHE_HOME:-$HOME/.cache}/cube-crystal"
 runtime="$cache/$version-$target"
 if [ -x "$runtime/opt/Crystal/Crystal" ] && [ -f "$runtime/.cube-sha256" ] && [ "$(cat "$runtime/.cube-sha256")" = "$digest" ]; then
   rm -f "$runtime/opt/Crystal/resources/app-update.yml"
+  sh "$(dirname "$0")/native/install.sh" "$runtime"
   echo "Crystal $version is installed."
   exit 0
 fi
@@ -31,4 +32,5 @@ rm -f "$stage/runtime/opt/Crystal/resources/app-update.yml"
 printf '%s\n' "$digest" > "$stage/runtime/.cube-sha256"
 rm -rf "$runtime"
 mv "$stage/runtime" "$runtime"
+sh "$(dirname "$0")/native/install.sh" "$runtime"
 echo "Installed Crystal $version ($target)."
