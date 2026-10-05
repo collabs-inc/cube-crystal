@@ -3,7 +3,7 @@
   "tag": "v0.3.5",
   "revision": "1e18e0bc981225f75b5226f82a300fa741970c6f",
   "license": "MIT",
-  "executable": "opt/Crystal/crystal",
+  "executable": "opt/Crystal/Crystal",
   "assets": {
     "linux-x64": {
       "name": "Crystal-0.3.5-linux-amd64.deb",

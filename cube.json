@@ -1,0 +1,9 @@
+{
+  "name": "Crystal",
+  "description": "Claude Code and Codex sessions across Git worktrees, using the upstream Linux desktop inside Cube.",
+  "upstream": "https://github.com/stravu/crystal",
+  "icon": "frontend/public/favicon.svg",
+  "platforms": ["linux"],
+  "install": "sh cube/install.sh",
+  "start": "node cube/start.mjs"
+}

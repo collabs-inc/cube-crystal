@@ -1,6 +1,7 @@
 #!/bin/sh
 set -eu
 umask 077
+sh "$(dirname "$0")/desktop/install.sh"
 version=0.3.5
 digest=e8c5321e50e4f46751861291f17105e4781cc787c905601f7ce462f1edb19c9a
 case "$(uname -s)-$(uname -m)" in
@@ -9,7 +10,8 @@ case "$(uname -s)-$(uname -m)" in
 esac
 cache="${XDG_CACHE_HOME:-$HOME/.cache}/cube-crystal"
 runtime="$cache/$version-$target"
-if [ -x "$runtime/opt/Crystal/crystal" ] && [ -f "$runtime/.cube-sha256" ] && [ "$(cat "$runtime/.cube-sha256")" = "$digest" ]; then
+if [ -x "$runtime/opt/Crystal/Crystal" ] && [ -f "$runtime/.cube-sha256" ] && [ "$(cat "$runtime/.cube-sha256")" = "$digest" ]; then
+  rm -f "$runtime/opt/Crystal/resources/app-update.yml"
   echo "Crystal $version is installed."
   exit 0
 fi
@@ -24,7 +26,8 @@ actual=$(sha256sum "$stage/runtime.deb" | cut -d ' ' -f 1)
 [ "$actual" = "$digest" ] || { echo 'Crystal archive checksum mismatch.' >&2; exit 1; }
 mkdir "$stage/runtime"
 dpkg-deb --extract "$stage/runtime.deb" "$stage/runtime"
-[ -x "$stage/runtime/opt/Crystal/crystal" ] || { echo 'Upstream Crystal executable was not found.' >&2; exit 1; }
+rm -f "$stage/runtime/opt/Crystal/resources/app-update.yml"
+[ -x "$stage/runtime/opt/Crystal/Crystal" ] || { echo 'Upstream Crystal executable was not found.' >&2; exit 1; }
 printf '%s\n' "$digest" > "$stage/runtime/.cube-sha256"
 rm -rf "$runtime"
 mv "$stage/runtime" "$runtime"
